@@ -18,14 +18,14 @@ RUN pip install --no-cache-dir psutil
 
 USER root
 ENV AEROSPIKE_VERSION 5.1.0.10
-ENV AEROSPIKE_SHA256 433bd60edc57e30c7f1280c151769bbd8b44f927555ea5205fa8b773e45cf7f3
+ENV AEROSPIKE_SHA256 6471c68e9492cf15a9c884f59a60f9a050ca10344f3ec35129744c7190c95987
 # Install Aerospike Server and Tools
 
 RUN \
   apt-get update -y \
   && apt-get install -y wget python lua5.2 gettext-base libldap-dev libcurl3 libcurl3-gnutls\
   && wget "https://www.aerospike.com/download/server/${AEROSPIKE_VERSION}/artifact/debian9" -O aerospike-server.tgz \
-#  && echo "$AEROSPIKE_SHA256 *aerospike-server.tgz" | sha256sum -c - \
+  && echo "$AEROSPIKE_SHA256 *aerospike-server.tgz" | sha256sum -c - \
   && mkdir aerospike \
   && tar xzf aerospike-server.tgz --strip-components=1 -C aerospike \
   && dpkg -i aerospike/aerospike-server-*.deb \
