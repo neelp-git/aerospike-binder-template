@@ -36,7 +36,7 @@ ENV HOME /home/${NB_USER}
 
 # Add the Aerospike configuration specific to this dockerfile
 COPY aerospike.template.conf /etc/aerospike/aerospike.template.conf
-COPY entrypoint.sh /asd_entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 COPY aerospike ${HOME}/aerospike
 
 # RUN adduser --disabled-password \
@@ -57,6 +57,6 @@ COPY aerospike ${HOME}/aerospike
 #
 EXPOSE 3000 3001 3002 3003
 
-# ENTRYPOINT ["/asd_entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["asd"]
 RUN /entrypoint.sh
