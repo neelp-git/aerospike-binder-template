@@ -28,8 +28,8 @@ RUN \
   && apt autoremove -y 
 
 
-ENV NB_USER="asusr"
-ENV NB_UID="1000"
+# ENV NB_USER="asusr"
+# ENV NB_UID="1000"
 # ENV NB_GROUP="asgrp"
 # ENV NB_GID="100"
 ENV HOME /home/${NB_USER}
@@ -46,7 +46,7 @@ COPY aerospike ${HOME}/aerospike
 
 # USER root
 # RUN chown -R ${NB_UID} ${HOME}
-USER ${NB_USER}
+# USER ${NB_USER}
 
 # Expose Aerospike ports
 #
@@ -57,6 +57,6 @@ USER ${NB_USER}
 #
 EXPOSE 3000 3001 3002 3003
 
-ENTRYPOINT ["/asd_entrypoint.sh"]
-CMD ["asd"]
-# RUN /entrypoint.sh
+# ENTRYPOINT ["/asd_entrypoint.sh"]
+# CMD ["asd"]
+RUN /entrypoint.sh
