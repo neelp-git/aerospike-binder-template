@@ -39,13 +39,13 @@ COPY aerospike.template.conf /etc/aerospike/aerospike.template.conf
 COPY entrypoint.sh /asd_entrypoint.sh
 COPY aerospike ${HOME}/aerospike
 
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
+# RUN adduser --disabled-password \
+#    --gecos "Default user" \
+#    --uid ${NB_UID} \
+#    ${NB_USER}
 
-USER root
-RUN chown -R ${NB_UID} ${HOME}
+# USER root
+# RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 # Expose Aerospike ports
