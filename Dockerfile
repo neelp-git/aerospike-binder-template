@@ -6,14 +6,6 @@ RUN pip install --no-cache-dir cryptography
 RUN pip install --no-cache-dir aerospike
 RUN pip install --no-cache-dir psutil
 
-# Expose Aerospike ports
-#
-#   3000 – service port, for client connections
-#   3001 – fabric port, for cluster communication
-#   3002 – mesh port, for cluster heartbeat
-#   3003 – info port
-#
-
 # Install Aerospike Server and Tools
 
 USER root
@@ -36,10 +28,25 @@ RUN \
   && apt autoremove -y 
 
 
+ENV NB_USER="asusr"
+ENV NB_UID="1000"
+# ENV NB_GROUP="asgrp"
+# ENV NB_GID="100"
+ENV HOME /home/${NB_USER}
+
 # Add the Aerospike configuration specific to this dockerfile
 COPY aerospike.template.conf /etc/aerospike/aerospike.template.conf
-COPY entrypoint.sh /entrypoint.sh
-COPY aerospike /home/$NB_USER/aerospike
+COPY entrypoint.sh /asd_entrypoint.sh
+COPY aerospike ${HOME}/aerospike
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+
+USER root
+RUN chown -R ${NB_UID} ${HOME}
+USER ${NB_USER}
 
 # Expose Aerospike ports
 #
@@ -49,7 +56,7 @@ COPY aerospike /home/$NB_USER/aerospike
 #   3003 – info port
 #
 EXPOSE 3000 3001 3002 3003
-ENV NB_USER="root"
-ENV NB_UID="0"
-ENV NB_GID="999"
-RUN /entrypoint.sh
+
+ENTRYPOINT ["/asd_entrypoint.sh"]
+CMD ["asd"]
+# RUN /entrypoint.sh
