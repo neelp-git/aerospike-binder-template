@@ -20,8 +20,8 @@ RUN \
 #  && echo "$AEROSPIKE_SHA256 *aerospike-server.tgz" | sha256sum -c - \
   && mkdir aerospike \
   && tar xzf aerospike-server.tgz --strip-components=1 -C aerospike \
-  && dpkg -i aerospike/aerospike-server-*.deb \
-#   && dpkg -i aerospike/aerospike-tools-*.deb \
+  && dpkg -i aerospike/aerospike-server-*.deb \   
+  && dpkg -i aerospike/aerospike-tools-*.deb \
   && rm -rf aerospike-server.tgz aerospike /var/lib/apt/lists/* \
   && rm -rf /opt/aerospike/lib/java \
   && apt-get purge -y \
