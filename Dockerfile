@@ -42,10 +42,10 @@ COPY aerospike ${HOME}/aerospike
 # install ijava kernel
 RUN wget https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz \
   && tar -xvf openjdk-10.0.2_linux-x64_bin.tar.gz \
-  && mkdir -p /usr/lib/jdk \
-  && mv jdk-10.0.2 /usr/lib/jdk \
-  && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/java" 1 \
-  && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/javac" 1 \
+  && mkdir -p /jdk \
+  && mv jdk-10.0.2 /jdk \
+  && update-alternatives --install "/usr/bin/java" "java" "/jdk/jdk-10.0.2/bin/java" 1 \
+  && update-alternatives --install "/usr/bin/java" "java" "/jdk/jdk-10.0.2/bin/javac" 1 \
   && update-alternatives --config java \
   && update-alternatives --config javac
 
