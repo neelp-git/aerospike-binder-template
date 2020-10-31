@@ -47,8 +47,9 @@ RUN wget https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413
   && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/java" 1 \
   && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/javac" 1 \
   && update-alternatives --config java \
-  && update-alternatives --config javac \
-  && java -version
+  && update-alternatives --config javac
+
+RUN java -version
 
 # RUN add-apt-repository ppa:openjdk-r/ppa \
 #   && apt-get update \
