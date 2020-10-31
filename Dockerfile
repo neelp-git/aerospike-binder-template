@@ -45,7 +45,7 @@ FROM openjdk:10.0.1-10-jdk
 RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip > ijava-kernel.zip
 # Unpack and install the kernel
 RUN apt-get update -y \
-  && apt-get install -y unzip python3-pip apt-transport-https -o APT::Immediate-Configure=0
+  && apt-get install -y unzip python3-pip apt-transport-https jupyter_client -o APT::Immediate-Configure=0
 RUN unzip ijava-kernel.zip -d ijava-kernel \
   && cd ijava-kernel \
   && python3 install.py --sys-prefix
