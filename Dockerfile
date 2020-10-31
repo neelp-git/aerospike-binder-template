@@ -40,9 +40,19 @@ COPY entrypoint.sh /entrypoint.sh
 COPY aerospike ${HOME}/aerospike
 
 # install ijava kernel
-RUN add-apt-repository ppa:openjdk-r/ppa \
-  && apt-get update \
-  && apt-get install -y openjdk-11-jdk
+RUN wget https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz \
+  && tar -xvf openjdk-10.0.2_linux-x64_bin.tar.gz \
+  && mkdir -p /usr/lib/jdk \
+  && mv jdk-10.0.2 /usr/lib/jdk \
+  && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/java" 1 \
+  && update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jdk/jdk-10.0.2/bin/javac" 1 \
+  && update-alternatives --config java \
+  && update-alternatives --config javac \
+  && java -version
+
+# RUN add-apt-repository ppa:openjdk-r/ppa \
+#   && apt-get update \
+#   && apt-get install -y openjdk-11-jdk
 # Download the kernel release
 RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip > ijava-kernel.zip
 # Unpack and install the kernel
