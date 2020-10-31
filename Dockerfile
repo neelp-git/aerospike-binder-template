@@ -26,7 +26,7 @@ RUN \
   && rm -rf /opt/aerospike/lib/java \
   && apt-get purge -y \
   && apt autoremove -y 
-
+  
 
 # ENV NB_USER="asusr"
 # ENV NB_UID="1000"
@@ -38,6 +38,16 @@ ENV HOME /home/${NB_USER}
 COPY aerospike.template.conf /etc/aerospike/aerospike.template.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY aerospike ${HOME}/aerospike
+
+# install ijava kernel
+FROM openjdk:10.0.1-10-jdk
+# Download the kernel release
+RUN curl -L https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip > ijava-kernel.zip
+# Unpack and install the kernel
+RUN unzip ijava-kernel.zip -d ijava-kernel \
+  && cd ijava-kernel \
+  && python3 install.py --sys-prefix
+
 
 # RUN adduser --disabled-password \
 #    --gecos "Default user" \
